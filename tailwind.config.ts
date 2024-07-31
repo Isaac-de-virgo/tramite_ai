@@ -15,10 +15,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        'brave-orange': '#FB542B',  // Color naranja vibrante
+        'brave-orange-dark': '#E04E20',  // Color naranja más oscuro
+      },
     },
   },
   plugins: [
     flowbite.plugin(),
   ],
 };
+
 export default config;
