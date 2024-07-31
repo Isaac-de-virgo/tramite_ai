@@ -1,10 +1,14 @@
 "use client";
 
 import axios from "axios";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { ComponentNavbar } from "@/components/Navbar";
 import { Card } from "flowbite-react";
+
 function Registerpage() {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -15,17 +19,27 @@ function Registerpage() {
         password: formData.get("password"),
         fullname: formData.get("fullname"),
       });
+      setSuccessMessage("Registro exitoso");
+      setErrorMessage("");
       console.log(res);
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMsg = error.response.data?.message || "Error en el registro";
+        setErrorMessage(errorMsg);
+      } else {
+        setErrorMessage("Error en el registro");
+      }
+      setSuccessMessage("");
       console.log(error);
     }
   };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className="max-w-sm">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
+      <Card className="max-w-sm mt-8">
         <form onSubmit={handleSubmit}>
           <h1 className="text-center">Registrate</h1>
-
+          
           <input
             type="text"
             placeholder="Peter Ospina"
@@ -48,7 +62,19 @@ function Registerpage() {
             <button className="bg-gradient-to-r from-brave-orange to-brave-orange-dark text-white font-bold py-2 px-4 rounded">
               Register
             </button>
+            
           </div>
+          <br />
+          {successMessage && (
+            <div className="bg-green-200 text-green-800 p-2 mb-4 rounded">
+              {successMessage}
+            </div>
+          )}
+          {errorMessage && (
+            <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
+              {errorMessage}
+            </div>
+          )}
         </form>
       </Card>
     </div>
