@@ -35,7 +35,7 @@ function Registerpage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center min-h-scree">
       <Card className="max-w-sm mt-8">
         <form onSubmit={handleSubmit}>
           <h1 className="text-center">Registrate</h1>
